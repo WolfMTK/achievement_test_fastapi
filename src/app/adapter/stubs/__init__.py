@@ -1,4 +1,4 @@
-from .advances import StubAdvanceGateway
+from .advance import StubAdvanceGateway
 from .user import StubUserGateway
 
 __all__ = (
