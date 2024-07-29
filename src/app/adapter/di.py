@@ -1,7 +1,7 @@
 from fastapi import Depends, FastAPI
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.adapter.sqlalchemy_db.connect import (
+from app.adapter.sqlalchemy_db import (
     create_async_session_maker,
     create_async_session,
 )
