@@ -1,5 +1,5 @@
 from app.adapter.stubs import StubUserGateway
-from app.application.dto.user import UserInfoDTO
+from app.application.dto import UserInfoDTO
 from app.application.protocols import Interactor
 from app.domain.models import UserId
 from app.domain.services import UserService
