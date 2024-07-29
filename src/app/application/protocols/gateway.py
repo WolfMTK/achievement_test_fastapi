@@ -5,7 +5,7 @@ from typing import Any
 
 class Created[T](ABC):
     @abstractmethod
-    async def create(self, *args: Any, **kwargs: ABC) -> T: ...
+    async def create(self, *args: Any, **kwargs: Any) -> T: ...
 
 
 class Reading[T](ABC):
@@ -15,7 +15,7 @@ class Reading[T](ABC):
 
 class ReadingAll[T](ABC):
     @abstractmethod
-    async def get_all(self, *args: Any, **kwargs: ABC) -> Sequence[T]: ...
+    async def get_all(self, *args: Any, **kwargs: Any) -> Sequence[T]: ...
 
 
 class Updating[T](ABC):
