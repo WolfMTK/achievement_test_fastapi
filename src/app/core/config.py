@@ -21,4 +21,5 @@ def get_str_env(key: str) -> str:
 
 
 def load_database_config() -> DatabaseConfig:
+    """ Загрузить конфиг для подключения к базе данных """
     return DatabaseConfig(db_url=get_str_env('DB_URL'))
