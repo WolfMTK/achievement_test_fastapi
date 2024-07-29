@@ -10,5 +10,15 @@ EXAMPLE_GET_USER_INFO_RESPONSE = {
                 }
             }
         }
+    },
+    404: {
+        'description': 'Not Found',
+        'content': {
+            'application/json': {
+                'example': {
+                    'detail': 'Пользователь не найден'
+                }
+            }
+        }
     }
 }
