@@ -1,10 +1,11 @@
+from .achievements import Achievements
 from .base import BaseModel
 from .user import Users
-from .advances import Advances
-
+from .advance_user import UsersAchievements
 
 __all__ = (
     'BaseModel',
     'Users',
-    'Advances'
+    'Achievements',
+    'UsersAchievements',
 )
