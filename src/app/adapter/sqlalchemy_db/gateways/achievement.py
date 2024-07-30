@@ -4,7 +4,7 @@ from sqlalchemy import select, insert, ScalarResult
 from sqlalchemy.sql import func
 
 from app.adapter.sqlalchemy_db.models import Achievements
-from app.adapter.stubs.advance import StubAchievementGateway
+from app.adapter.stubs.achievement import StubAchievementGateway
 from .base import BaseGateway
 
 
