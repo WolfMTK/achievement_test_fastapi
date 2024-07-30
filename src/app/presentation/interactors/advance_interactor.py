@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 from contextlib import AbstractAsyncContextManager
 
-from app.application.commands.create_advance import CreateAdvance
+from app.application.commands import CreateAdvance, GetAdvances
 
 
 class AdvanceInteractorFactory(ABC):
@@ -9,3 +9,6 @@ class AdvanceInteractorFactory(ABC):
     def create_advance(
             self
     ) -> AbstractAsyncContextManager[CreateAdvance]: ...
+
+    @abstractmethod
+    def get_advances(self) -> AbstractAsyncContextManager[GetAdvances]: ...
