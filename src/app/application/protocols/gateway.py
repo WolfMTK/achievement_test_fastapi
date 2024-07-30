@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from collections.abc import Sequence
+from collections.abc import Iterator
 from typing import Any
 
 
@@ -15,7 +15,7 @@ class Reading[T](ABC):
 
 class ReadingAll[T](ABC):
     @abstractmethod
-    async def get_all(self, *args: Any, **kwargs: Any) -> Sequence[T]: ...
+    async def get_all(self, *args: Any, **kwargs: Any) -> Iterator[T]: ...
 
 
 class Updating[T](ABC):
