@@ -1,27 +1,27 @@
-from .advance import (
-    AdvanceResultDTO,
-    AdvanceListDTO,
-    GetAdvanceListDTO,
-    CreateAdvanceDTO,
+from .achievement import (
+    AchievementResultDTO,
+    AchievementListDTO,
+    GetAchievementListDTO,
+    CreateAchievementDTO,
 )
-from .advance_user import (
-    NewAdvanceUserDTO,
-    AdvanceUserResultDTO,
-    GetAdvanceUserDTO,
-    AdvanceUserListDTO,
+from .achievement_user import (
+    NewAchievementUserDTO,
+    AchievementUserResultDTO,
+    GetAchievementUserDTO,
+    AchievementUserListDTO,
 )
 from .pagination import Pagination
 from .user import UserInfoDTO
 
 __all__ = (
-    'AdvanceResultDTO',
-    'AdvanceListDTO',
-    'GetAdvanceListDTO',
-    'CreateAdvanceDTO',
+    'AchievementResultDTO',
+    'AchievementListDTO',
+    'GetAchievementListDTO',
+    'CreateAchievementDTO',
     'Pagination',
     'UserInfoDTO',
-    'NewAdvanceUserDTO',
-    'AdvanceUserResultDTO',
-    'GetAdvanceUserDTO',
-    'AdvanceUserListDTO',
+    'NewAchievementUserDTO',
+    'AchievementUserResultDTO',
+    'GetAchievementUserDTO',
+    'AchievementUserListDTO',
 )

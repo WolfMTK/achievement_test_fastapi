@@ -2,15 +2,15 @@ from fastapi import APIRouter, Depends, HTTPException, status, Path, Query
 
 from app.application.dto import (
     UserInfoDTO,
-    GetAdvanceUserDTO,
+    GetAchievementUserDTO,
     Pagination,
-    AdvanceUserListDTO
+    AchievementUserListDTO
 )
 from app.domain.exceptions import UserNotFoundException
 from app.domain.models import UserId
 from app.presentation.interactors import (
     UserInteractorFactory,
-    AdvanceUserInteractorFactory
+    AchievementUserInteractorFactory
 )
 from app.presentation.openapi import EXAMPLE_GET_USER_INFO_RESPONSE
 
@@ -45,20 +45,20 @@ async def get_user_info(
 
 
 @user_router.get(
-    '/{user_id}/advances',
-    response_model=AdvanceUserListDTO
+    '/{user_id}/achievement',
+    response_model=AchievementUserListDTO
 )
-async def get_advance_user(
+async def get_achievement_user(
         limit: int = Query(10, description='Лимит записей'),
         offset: int = Query(0, description='Текущая страница'),
         user_id: UserId = Path(
             ...,
             description='Уникальный идентификатор пользователя'
         ),
-        ioc: AdvanceUserInteractorFactory = Depends()
+        ioc: AchievementUserInteractorFactory = Depends()
 ):
-    async with ioc.get_advance_user() as get_advance_user_factory:
-        return await get_advance_user_factory(GetAdvanceUserDTO(
+    async with ioc.get_achievement_user() as get_achievement_user_factory:
+        return await get_achievement_user_factory(GetAchievementUserDTO(
             user_id=user_id,
             pagination=Pagination(limit=limit,
                                   offset=offset)

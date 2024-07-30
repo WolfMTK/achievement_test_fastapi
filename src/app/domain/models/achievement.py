@@ -1,13 +1,13 @@
 from dataclasses import dataclass
 
-from .advance_id import AdvanceId
+from .achievement_id import AchievementId
 
 
 @dataclass
-class Advances:
+class Achievements:
     """  Модель достижений. """
 
-    id: AdvanceId
+    id: AchievementId
     # уникальный идентификатор
     name: str
     # название достижения

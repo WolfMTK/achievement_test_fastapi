@@ -3,7 +3,7 @@ import uuid
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.domain.enums import Language
-from .advance_user import UsersAchievements
+from .achievement_user import UsersAchievements
 from .base import BaseModel
 
 
@@ -22,4 +22,4 @@ class Users(BaseModel):
                                                default=Language.RU,
                                                comment='Выбранный пользователем язык')
     achievements: Mapped[list[UsersAchievements]] = relationship(back_populates='user',
-                                                             lazy='selectin')
+                                                                 lazy='selectin')

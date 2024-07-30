@@ -4,19 +4,19 @@ from pydantic import Field, field_validator
 
 from app.core.constants import LENGTH_LANGUAGE, RU_LOWERCASE, EN_LOWERCASE
 from app.core.validators import check_text
-from app.domain.models import AdvanceId, Advances
+from app.domain.models import AchievementId, Achievements
 from .base import Base
 from .pagination import Pagination
 
 
 @dataclass
-class GetAdvanceListDTO:
+class GetAchievementListDTO:
     """ Модель данных для получения списка достижений. """
 
     pagination: Pagination
 
 
-class CreateAdvanceDTO(Base):
+class CreateAchievementDTO(Base):
     """ Модель данных для создания достижений. """
 
     name: str = Field(..., description='Название достижения')
@@ -48,17 +48,17 @@ class CreateAdvanceDTO(Base):
         return '|'.join(result.values())
 
 
-class AdvanceResultDTO(Base):
+class AchievementResultDTO(Base):
     """ Модель данных для получения достижений. """
 
-    id: AdvanceId = Field(...,
-                          description='Уникальный идентификатор')
+    id: AchievementId = Field(...,
+                              description='Уникальный идентификатор')
 
 
-class AdvanceListDTO(Base):
+class AchievementListDTO(Base):
     """ Модель данных для получения массива достижений. """
 
     total: int = Field(..., description='Количество достижений')
     limit: int = Field(..., description='Лимит записей')
     offset: int = Field(..., description='Текущая страница')
-    advances: list[Advances]
+    achievements: list[Achievements]

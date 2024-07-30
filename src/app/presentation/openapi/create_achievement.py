@@ -1,4 +1,4 @@
-EXAMPLE_CREATE_ADVANCE_RESPONSE = {
+EXAMPLE_CREATE_ACHIEVEMENT_RESPONSE = {
     201: {
         'description': 'Created',
         'content': {
@@ -26,7 +26,7 @@ EXAMPLE_CREATE_ADVANCE_RESPONSE = {
     }
 }
 
-EXAMPLE_CREATE_ADVANCE_BODY = {
+EXAMPLE_CREATE_ACHIEVEMENT_BODY = {
     'name': 'Сердце на рукаве | A heart on a sleeve',
     'numberPoints': 150,
     'description': 'Отреагируйте на что-либо на GitHub '

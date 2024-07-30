@@ -1,13 +1,13 @@
-from .advance import Advances
-from .advance_id import AdvanceId
+from .achievement import Achievements
+from .achievement_id import AchievementId
 from .user import Users
 from .user_id import UserId
-from .advance_user import UsersAdvances
+from .achievement_user import UsersAchievements
 
 __all__ = (
     'Users',
-    'AdvanceId',
-    'Advances',
+    'AchievementId',
+    'Achievements',
     'UserId',
-    'UsersAdvances'
+    'UsersAchievements'
 )

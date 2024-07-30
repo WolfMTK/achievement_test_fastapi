@@ -12,7 +12,6 @@ class UserGateway(BaseGateway, StubUserGateway):
         """
         Получить данные пользователя.
 
-        Пример выполняемого запроса:
         SELECT
             u.id,
             u.name,

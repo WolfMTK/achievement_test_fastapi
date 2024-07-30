@@ -1,4 +1,4 @@
-EXAMPLE_GET_ADVANCES_RESPONSE = {
+EXAMPLE_GET_ACHIEVEMENTS_RESPONSE = {
     200: {
         'description': 'Successful Response',
         'content': {
@@ -7,7 +7,7 @@ EXAMPLE_GET_ADVANCES_RESPONSE = {
                     'total': 11,
                     'limit': 2,
                     'offset': 0,
-                    'advances': [
+                    'achievements': [
                         {
                             'id': 'c9770083-b15b-4ad2-9294-de5a1808a31f',
                             'name': 'Сердце на рукаве|A heart on a sleeve',

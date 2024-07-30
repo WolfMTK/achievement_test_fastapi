@@ -27,14 +27,13 @@ class AchievementGateway(BaseGateway, StubAchievementGateway):
         """
         Получить все достижения.
 
-        Пример запроса:
         SELECT
             a.id
             a.name,
             a.number_points,
             a.description
         FROM
-            advances AS a
+            achievements AS a
         LIMIT
             $1
         OFFSET
@@ -44,24 +43,22 @@ class AchievementGateway(BaseGateway, StubAchievementGateway):
         result = await self.session.execute(stmt)
         return result.scalars()
 
-    async def get_total_advances(self) -> int:
+    async def get_total_achievements(self) -> int:
         """
         Получить количество достижений.
 
-        Пример запроса:
         SELECT
             COUNT(a.id)
         FROM
-            advances AS a
+            achievements AS a
         """
         stmt = select(func.count(Achievements.id))
         return await self.session.scalar(stmt)
 
-    async def check_advance(self, **kwargs: Any) -> bool:
+    async def check_achievement(self, **kwargs: Any) -> bool:
         """
         Проверить наличия записи о достижении.
 
-        Пример запроса:
         SELECT EXISTS
             (SELECT
                 a.id,
@@ -69,9 +66,9 @@ class AchievementGateway(BaseGateway, StubAchievementGateway):
                 a.number_points,
                 a.description
              FROM
-                advances AS a
+                achievements AS a
              WHERE
-                a.name = $1)
+                a.name = $1
         """
 
         stmt = select(Achievements).filter_by(**kwargs).exists()

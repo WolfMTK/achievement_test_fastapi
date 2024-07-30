@@ -3,8 +3,8 @@ import uuid
 from sqlalchemy import Text
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
+from .achievement_user import UsersAchievements
 from .base import BaseModel
-from .advance_user import UsersAchievements
 
 
 class Achievements(BaseModel):
@@ -30,4 +30,6 @@ class Achievements(BaseModel):
         nullable=False,
         comment='Описание достижения'
     )
-    users: Mapped[list[UsersAchievements]] = relationship(back_populates='advance')
+    users: Mapped[list[UsersAchievements]] = relationship(
+        back_populates='achievement'
+    )

@@ -1,13 +1,13 @@
-from .add_advance_user import AddAdvanceUser
-from .create_advance import CreateAdvance
-from .get_advances import GetAdvances
+from .add_achievement_user import AddAchievementUser
+from .create_achievement import CreateAchievement
+from .get_achievements import GetAchievements
 from .get_user_info import GetUserInfo
-from .get_advance_user import GetAdvanceUser
+from .get_achievements_user import GetAchievementsUser
 
 __all__ = (
     'GetUserInfo',
-    'CreateAdvance',
-    'GetAdvances',
-    'AddAdvanceUser',
-    'GetAdvanceUser',
+    'CreateAchievement',
+    'GetAchievements',
+    'AddAchievementUser',
+    'GetAchievementsUser',
 )

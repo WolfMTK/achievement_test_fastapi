@@ -1,9 +1,9 @@
-from .advance_interactor import AdvanceInteractorFactory
-from .advance_user_interactor import AdvanceUserInteractorFactory
+from .achievement_interactor import AchievementInteractorFactory
+from .achievement_user_interactor import AchievementUserInteractorFactory
 from .user_interactor import UserInteractorFactory
 
 __all__ = (
     'UserInteractorFactory',
-    'AdvanceInteractorFactory',
-    'AdvanceUserInteractorFactory',
+    'AchievementInteractorFactory',
+    'AchievementUserInteractorFactory',
 )

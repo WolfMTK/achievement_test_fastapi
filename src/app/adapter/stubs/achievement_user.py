@@ -3,15 +3,15 @@ from collections.abc import Iterator
 
 from app.adapter.sqlalchemy_db.models import UsersAchievements
 from app.application.protocols import Created
-from app.domain.models import UserId, AdvanceId
+from app.domain.models import UserId, AchievementId
 
 
-class StubUserAdvanceGateway(
+class StubUserAchievementGateway(
     Created[UsersAchievements],
     ABC
 ):
     @abstractmethod
-    async def get_advances(
+    async def get_achievements(
             self,
             user_id: UserId,
             limit: int,
@@ -19,18 +19,18 @@ class StubUserAdvanceGateway(
     ) -> Iterator[UsersAchievements]: ...
 
     @abstractmethod
-    async def check_user_id_and_advance_id(
+    async def check_user_id_and_achievement_id(
             self,
             user_id: UserId,
-            advance_id: AdvanceId
+            achievement_id: AchievementId
     ) -> bool: ...
 
     @abstractmethod
-    async def check_advance_user(
+    async def check_achievement_user(
             self,
             user_id: UserId,
-            advance_id: AdvanceId
+            achievement_id: AchievementId
     ) -> bool: ...
 
     @abstractmethod
-    async def get_total_advances(self, user_id: UserId) -> int: ...
+    async def get_total_achievements(self, user_id: UserId) -> int: ...

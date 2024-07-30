@@ -1,11 +1,11 @@
-from .advance import (AdvanceExistsException,
-                      AdvanceUserExistsException,
-                      AdvanceUserNotFoundException)
+from .achievement import (AchievementExistsException,
+                          AchievementUserExistsException,
+                          AchievementUserNotFoundException)
 from .user import UserNotFoundException
 
 __all__ = (
     'UserNotFoundException',
-    'AdvanceExistsException',
-    'AdvanceUserExistsException',
-    'AdvanceUserNotFoundException',
+    'AchievementExistsException',
+    'AchievementUserExistsException',
+    'AchievementUserNotFoundException',
 )

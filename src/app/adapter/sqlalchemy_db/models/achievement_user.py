@@ -8,19 +8,19 @@ from sqlalchemy.orm import Mapped, mapped_column, relationship
 from .base import BaseModel
 
 Users = TypeVar('Users')
-Advances = TypeVar('Advances')
+Achievements = TypeVar('Achievements')
 
 
 class UsersAchievements(BaseModel):
     """ Ассоциативная таблица между пользователями и достижениями. """
 
-    __tablename__ = 'users_advances'
+    __tablename__ = 'users_achievements'
     user_id: Mapped[uuid.UUID] = mapped_column(
         ForeignKey('users.id'),
         primary_key=True
     )
-    advance_id: Mapped[uuid.UUID] = mapped_column(
-        ForeignKey('advances.id'),
+    achievement_id: Mapped[uuid.UUID] = mapped_column(
+        ForeignKey('achievements.id'),
         primary_key=True
     )
     date_on: Mapped[dt.datetime] = mapped_column(
@@ -28,7 +28,7 @@ class UsersAchievements(BaseModel):
         default=dt.datetime.now,
         comment='Дата выдачи достижения'
     )
-    user: Mapped['Users'] = relationship(back_populates='advances',
+    user: Mapped['Users'] = relationship(back_populates='achievements',
                                          lazy='selectin')
-    advance: Mapped['Advances'] = relationship(back_populates='users',
-                                               lazy='selectin')
+    achievement: Mapped['Achievements'] = relationship(back_populates='users',
+                                                       lazy='selectin')

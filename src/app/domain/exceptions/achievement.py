@@ -1,17 +1,17 @@
-class AdvanceException(Exception):
+class AchievementException(Exception):
     pass
 
 
-class AdvanceExistsException(AdvanceException):
+class AchievementExistsException(AchievementException):
     def __str__(self) -> str:
         return 'Достижение с таким названием уже создано'
 
 
-class AdvanceUserExistsException(AdvanceException):
+class AchievementUserExistsException(AchievementException):
     def __str__(self) -> str:
         return 'Достижение уже было добавлено пользователю'
 
 
-class AdvanceUserNotFoundException(AdvanceException):
+class AchievementUserNotFoundException(AchievementException):
     def __str__(self) -> str:
         return 'Пользователь или достижение не найдено'

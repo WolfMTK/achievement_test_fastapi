@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 
 from app import adapter
-from app.presentation.web import user_router, advance_router
+from app.presentation.web import user_router, achievement_router
 from .di import init_dependencies
 
 
@@ -17,4 +17,4 @@ def create_app() -> FastAPI:
 def include_routers(app: FastAPI):
     """ Включить маршруты. """
     app.include_router(user_router)
-    app.include_router(advance_router)
+    app.include_router(achievement_router)

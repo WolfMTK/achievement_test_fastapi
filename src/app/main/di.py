@@ -2,11 +2,11 @@ from fastapi import FastAPI
 
 from app.presentation.interactors import (
     UserInteractorFactory,
-    AdvanceInteractorFactory,
-    AdvanceUserInteractorFactory
+    AchievementInteractorFactory,
+    AchievementUserInteractorFactory
 )
-from .advance_ioc import AdvanceIOC
-from .advance_user_ioc import AdvanceUserIOC
+from .achievement_ioc import AchievementIOC
+from .achievement_user_ioc import AchievementUserIOC
 from .user_ioc import UserIOC
 
 
@@ -14,6 +14,6 @@ def init_dependencies(app: FastAPI) -> None:
     """ Инициализировать зависимости. """
     app.dependency_overrides.update({
         UserInteractorFactory: UserIOC,
-        AdvanceInteractorFactory: AdvanceIOC,
-        AdvanceUserInteractorFactory: AdvanceUserIOC
+        AchievementInteractorFactory: AchievementIOC,
+        AchievementUserInteractorFactory: AchievementUserIOC
     })

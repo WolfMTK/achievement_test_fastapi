@@ -2,25 +2,25 @@ from dataclasses import dataclass
 
 from pydantic import Field
 
-from app.domain.models import UserId, AdvanceId, Advances
+from app.domain.models import UserId, AchievementId, Achievements
 from .pagination import Pagination
 from .base import BaseModel
 
 
-class NewAdvanceUserDTO(BaseModel):
+class NewAchievementUserDTO(BaseModel):
     """ Модель данных для добавления достижения пользователю. """
 
     user_id: UserId = Field(
         ...,
         description='Уникальный идентификатор пользователя',
     )
-    advance_id: AdvanceId = Field(
+    achievement_id: AchievementId = Field(
         ...,
         description='Уникальный идентификатор достижения',
     )
 
 
-class AdvanceUserResultDTO(NewAdvanceUserDTO):
+class AchievementUserResultDTO(NewAchievementUserDTO):
     """ Модель данных для получения достижения пользователя. """
 
     date_on: str = Field(
@@ -29,7 +29,7 @@ class AdvanceUserResultDTO(NewAdvanceUserDTO):
     )
 
 
-class AdvanceUserListDTO(BaseModel):
+class AchievementUserListDTO(BaseModel):
     total: int = Field(..., description='Количество достижений')
     limit: int = Field(..., description='Лимит записей')
     offset: int = Field(..., description='Текущая страница')
@@ -37,12 +37,12 @@ class AdvanceUserListDTO(BaseModel):
         ...,
         description='Уникальный идентификатор пользователя',
     )
-    advances: list[Advances]
+    achievements: list[Achievements]
 
 
 
 @dataclass
-class GetAdvanceUserDTO:
+class GetAchievementUserDTO:
     """ Модель данных для получения достижений пользователя. """
 
     user_id: UserId
