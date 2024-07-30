@@ -10,12 +10,12 @@ from app.adapter.sqlalchemy_db import (
 )
 from app.adapter.sqlalchemy_db.gateways import (
     UserGateway,
-    AdvanceGateway,
+    AchievementGateway,
     UserAdvanceGateway,
 )
 from app.adapter.stubs import (
     StubUserGateway,
-    StubAdvanceGateway,
+    StubAchievementGateway,
     StubUserAdvanceGateway,
 )
 from app.application.protocols import UoW
@@ -36,8 +36,8 @@ def new_user_gateway(
 
 def new_advance_gateway(
         session: AsyncSession = Depends(Stub(AsyncSession))
-) -> Iterator[AdvanceGateway]:
-    yield AdvanceGateway(session)
+) -> Iterator[AchievementGateway]:
+    yield AchievementGateway(session)
 
 
 def new_user_advance_gateway(
@@ -56,7 +56,7 @@ def init_dependency(app: FastAPI) -> None:
             AsyncSession: functools.partial(create_async_session, session_maker),
             UoW: new_uow,
             StubUserGateway: new_user_gateway,
-            StubAdvanceGateway: new_advance_gateway,
+            StubAchievementGateway: new_advance_gateway,
             StubUserAdvanceGateway: new_user_advance_gateway
         }
     )
