@@ -11,7 +11,10 @@ class Advances:
     # уникальный идентификатор
     name: str
     # название достижения
-    number_points: str
+    number_points: int
     # количество баллов за достижение
     description: str
     # описание достижения
+
+    def __post_init__(self):
+        self.number_points = int(self.number_points)
