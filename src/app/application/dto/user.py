@@ -6,6 +6,8 @@ from .base import Base
 
 
 class UserInfoDTO(Base):
+    """ Модель данных для получения информации о пользователе. """
+
     id: UserId = Field(..., description='Уникальный идентификатор')
     name: str = Field(..., description='Имя пользователя')
     language: Language = Field(...,
