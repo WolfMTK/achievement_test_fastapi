@@ -37,5 +37,5 @@ class AddAchievementUser(
         return AchievementUserResultDTO(
             user_id=achievement_user.user_id,
             achievement_id=achievement_user.achievement_id,
-            date_on=achievement_user.date_on
+            date_on=self.service.get_date_on(achievement_user.date_on)
         )
