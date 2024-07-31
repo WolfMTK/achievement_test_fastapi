@@ -19,7 +19,7 @@ class GetMaxAchievementPointsUser(
 
     async def __call__(self, **kwargs: Any) -> MaxAchievementPointsUserResultDTO:
         data = await self.gateway.get_max_achievement_points_user()
-        self.service.check_max_achievement_points_user(data)
+        self.service.check_max_points_user(data)
         user_id, name, total = data
         return MaxAchievementPointsUserResultDTO(
             id=user_id,
