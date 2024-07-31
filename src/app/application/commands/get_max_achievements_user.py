@@ -1,6 +1,6 @@
 from typing import Any
 
-from app.adapter.stubs import StubUserAchievementGateway
+from app.adapter.stubs import StubAchievementUserGateway
 from app.application.dto import MaxAchievementsUserResultDTO
 from app.application.protocols import Interactor
 from app.domain.services import AchievementUserService
@@ -9,7 +9,7 @@ from app.domain.services import AchievementUserService
 class GetMaxAchievementsUser(Interactor[None, MaxAchievementsUserResultDTO]):
     def __init__(
             self,
-            gateway: StubUserAchievementGateway,
+            gateway: StubAchievementUserGateway,
             service: AchievementUserService
     ) -> None:
         self.gateway = gateway

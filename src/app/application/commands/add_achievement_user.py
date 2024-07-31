@@ -1,4 +1,4 @@
-from app.adapter.stubs import StubUserAchievementGateway
+from app.adapter.stubs import StubAchievementUserGateway
 from app.application.dto.achievement_user import (
     NewAchievementUserDTO,
     AchievementUserResultDTO
@@ -12,7 +12,7 @@ class AddAchievementUser(
 ):
     def __init__(
             self,
-            gateway: StubUserAchievementGateway,
+            gateway: StubAchievementUserGateway,
             uow: UoW,
             service: AchievementUserService
     ) -> None:
