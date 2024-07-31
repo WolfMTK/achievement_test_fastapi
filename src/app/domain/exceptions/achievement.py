@@ -15,3 +15,8 @@ class AchievementUserExistsException(AchievementException):
 class AchievementUserNotFoundException(AchievementException):
     def __str__(self) -> str:
         return 'Пользователь или достижение не найдено'
+
+
+class MaxAchievementsNotFoundException(AchievementException):
+    def __str__(self) -> str:
+        return 'Пользователя с максимальным количеством достижений не найдено'
