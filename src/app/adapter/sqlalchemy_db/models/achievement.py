@@ -21,7 +21,7 @@ class Achievements(BaseModel):
         unique=True,
         comment='Название достижения'
     )
-    number_points: Mapped[str] = mapped_column(
+    number_points: Mapped[int] = mapped_column(
         nullable=False,
         comment='Количество баллов за достижения'
     )

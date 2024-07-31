@@ -15,6 +15,3 @@ class Achievements:
     # количество баллов за достижение
     description: str
     # описание достижения
-
-    def __post_init__(self):
-        self.number_points = int(self.number_points)

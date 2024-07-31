@@ -23,7 +23,7 @@ class CreateAchievement(Interactor[CreateAchievementDTO, AchievementResultDTO]):
         achievement = await self.gateway.create(
             id=achievement.id,
             name=achievement.name,
-            number_points=str(achievement.number_points),
+            number_points=achievement.number_points,
             description=achievement.description
         )
         await self.uow.commit()
