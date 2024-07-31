@@ -5,27 +5,34 @@ from app.core.constants import LANGUAGE
 from app.domain.exceptions import (
     AchievementUserExistsException,
     AchievementUserNotFoundException,
-    MaxAchievementsUserNotFoundException,
+    MaxAchievementsNotFound,
     UserNotFoundException,
-    MaxAchievementPointsUserNotFoundException,
+    MaxPointsNotFound, MaxPointsDiffNotFoundException,
 )
 from app.domain.models import UsersAchievements, Achievements, UserId
 
 
 class AchievementUserService:
-    def check_max_achievement_points_user(
+    def check_max_points_diff_users(
+            self,
+            values: Iterator[tuple[UserId, str, int, int]] | None
+    ) -> None:
+        if values is None:
+            raise MaxPointsDiffNotFoundException()
+
+    def check_max_points_user(
             self,
             value: tuple[UserId, str, int] | None
     ) -> None:
         if value is None:
-            raise MaxAchievementPointsUserNotFoundException()
+            raise MaxPointsNotFound()
 
     def check_max_achievements_user(
             self,
             value: tuple[UserId, str, int] | None
     ) -> None:
         if value is None:
-            raise MaxAchievementsUserNotFoundException()
+            raise MaxAchievementsNotFound()
 
     def check_user(self, value: bool) -> None:
         if not value:

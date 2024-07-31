@@ -47,3 +47,8 @@ class StubAchievementUserGateway(
     async def get_max_achievement_points_user(
             self
     ) -> tuple[UserId, str, int] | None: ...
+
+    @abstractmethod
+    async def get_users_with_max_points_diff(
+            self
+    ) -> Iterator[tuple[UserId, str, int, int]] | None: ...

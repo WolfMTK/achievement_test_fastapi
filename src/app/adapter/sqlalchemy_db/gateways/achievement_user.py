@@ -1,3 +1,5 @@
+from collections.abc import Iterator
+
 from sqlalchemy import insert, select, ScalarResult, desc
 from sqlalchemy.sql import func
 
@@ -143,7 +145,8 @@ class AchievementUserGateway(BaseGateway, StubAchievementUserGateway):
         JOIN
             users_achievements AS ua ON u.id = ua.user_id
         GROUP BY
-            u.id, u.name
+            u.id,
+            u.name
         ORDER BY
             achievement_count DESC
         LIMIT
@@ -199,7 +202,8 @@ class AchievementUserGateway(BaseGateway, StubAchievementUserGateway):
         JOIN
             achievements AS a ON a.id = ua.achievement_id
         GROUP BY
-            u.id, u.name
+            u.id,
+            u.name
         ORDER BY
             total DESC
         LIMIT
@@ -222,3 +226,98 @@ class AchievementUserGateway(BaseGateway, StubAchievementUserGateway):
         if result_first is None:
             return None
         return result_first.tuple()
+
+    async def get_users_with_max_points_diff(
+            self
+    ) -> Iterator[tuple[UserId, str, int, int]] | None:
+        # PEP8.... как-то поместилось...
+        """
+        Получение пользователей с максимальной разностью очков достижений.
+
+        WITH user_points AS (
+            SELECT
+                u.id,
+                u.name,
+                SUM(a.number_points) AS total
+            FROM
+                users AS u
+            JOIN
+                users_achievements AS ua ON u.id = ua.user_id
+            JOIN
+                achievements AS a ON a.id = ua.achievement_id
+            GROUP BY
+                u.id,
+                u.name
+        ),
+        points_range AS (
+            SELECT
+                MAX(total) AS max_points,
+                MIN(total) AS min_points
+            FROM
+                user_points
+        )
+        SELECT
+            u.id,
+            u.name,
+            up.total,
+            (
+                SELECT
+                    max_points
+                FROM
+                    points_range
+            ) - (
+                SELECT
+                    min_points
+                FROM
+                    points_range
+            ) AS max_diff
+        FROM
+            users AS u
+        JOIN user_points AS up ON u.id = up.id
+        WHERE
+            up.total = (SELECT max_points FROM points_range)
+            OR
+            up.total = (SELECT min_points FROM points_range)
+        """
+
+        # Учитывал, что данных может быть большое количество,
+        # вычисления перенес на сторону БД
+        user_points = (
+            select(
+                Users.id, Users.name, func.sum(
+                    Achievements.number_points
+                ).label('total')
+            )
+            .join(UsersAchievements, Users.id == UsersAchievements.user_id)
+            .join(Achievements, Achievements.id == UsersAchievements.achievement_id)
+            .group_by(Users.id, Users.name)
+        ).cte('user_points')
+
+        points_range = (
+            select(
+                func.max(user_points.c.total).label('max_points'),
+                func.min(user_points.c.total).label('min_points')
+            )
+        ).cte('points_range')
+
+        stmt = (
+            select(
+                Users.id,
+                Users.name,
+                user_points.c.total,
+                (
+                    select(points_range.c.max_points).scalar_subquery()
+                    - select(points_range.c.min_points).scalar_subquery()
+                ).label('max_diff')
+            )
+            .join(user_points, Users.id == user_points.c.id)
+            .where(
+                (user_points.c.total == select(points_range.c.max_points).scalar_subquery())
+                | (user_points.c.total == select(points_range.c.min_points).scalar_subquery())
+            )
+        )
+        result = await self.session.execute(stmt)
+        users = result.all()
+        if len(users) == 0:
+            return None
+        return (val.tuple() for val in users)

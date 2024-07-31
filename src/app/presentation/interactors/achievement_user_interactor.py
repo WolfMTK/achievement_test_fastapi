@@ -5,7 +5,8 @@ from app.application.commands import (
     AddAchievementUser,
     GetAchievementsUser,
     GetMaxAchievementsUser,
-    GetMaxAchievementPointsUser
+    GetMaxAchievementPointsUser,
+    GetUsersWithMaxPointsDiff
 )
 
 
@@ -29,3 +30,8 @@ class AchievementUserInteractorFactory(ABC):
     def get_max_achievement_points_user(
             self
     ) -> AbstractAsyncContextManager[GetMaxAchievementPointsUser]: ...
+
+    @abstractmethod
+    def get_users_with_max_points_diff(
+            self
+    ) -> AbstractAsyncContextManager[GetUsersWithMaxPointsDiff]: ...
