@@ -30,6 +30,8 @@ class AchievementUserResultDTO(NewAchievementUserDTO):
 
 
 class AchievementUserListDTO(BaseModel):
+    """ Модель данных для получения массива достижения пользователя. """
+
     total: int = Field(..., description='Количество достижений')
     limit: int = Field(..., description='Лимит записей')
     offset: int = Field(..., description='Текущая страница')
@@ -49,6 +51,11 @@ class GetAchievementUserDTO:
 
 
 class MaxAchievementsUserResultDTO(BaseModel):
+    """
+    Модель данных для получения пользователя
+    с максимальным количеством достижений.
+    """
+
     id: UserId = Field(
         ...,
         description='Уникальный идентификатор пользователя',
@@ -60,4 +67,23 @@ class MaxAchievementsUserResultDTO(BaseModel):
     count: int = Field(
         ...,
         description='Количество достижений'
+    )
+
+
+class MaxAchievementPointsUserResultDTO(BaseModel):
+    """
+    Модель данных для получения пользователя с максимальным
+    количеством очков достижений.
+    """
+    id: UserId = Field(
+        ...,
+        description='Уникальный идентификатор пользователя',
+    )
+    name: str = Field(
+        ...,
+        description='Имя пользователя'
+    )
+    total_points: int = Field(
+        ...,
+        description='Количеством очков достижений'
     )
