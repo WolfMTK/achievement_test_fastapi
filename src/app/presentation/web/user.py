@@ -7,13 +7,15 @@ from app.application.dto import (
     AchievementUserListDTO,
     MaxAchievementsUserResultDTO,
     MaxAchievementPointsUserResultDTO,
-    UserWithMaxPointsDiffResultDTO
+    UserWithMaxPointsDiffResultDTO,
+    UserWithMinPointsDiffResultDTO
 )
 from app.domain.exceptions import (
     UserNotFoundException,
     MaxAchievementsNotFound,
     MaxPointsNotFound,
-    MaxPointsDiffNotFoundException
+    MaxPointsDiffNotFoundException,
+    MinPointsDiffNotFoundException
 )
 from app.domain.models import UserId
 from app.presentation.interactors import (
@@ -120,7 +122,7 @@ async def get_max_achievement_points_user(
 
 
 @user_router.get(
-    '/diff-points',
+    '/max-diff-points',
     tags=['Statistics'],
     response_model=list[UserWithMaxPointsDiffResultDTO]
 )
@@ -132,6 +134,25 @@ async def get_users_with_max_points_diff(
                     get_users_with_max_points_diff_factory):
             return await get_users_with_max_points_diff_factory()
     except MaxPointsDiffNotFoundException as err:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=str(err)
+        )
+
+
+@user_router.get(
+    '/min-diff-points',
+    tags=['Statistics'],
+    response_model=list[UserWithMinPointsDiffResultDTO]
+)
+async def get_users_with_min_points_diff(
+        ioc: AchievementUserInteractorFactory = Depends()
+):
+    try:
+        async with (ioc.get_users_with_min_points_diff() as
+                    get_users_with_min_points_diff_factory):
+            return await get_users_with_min_points_diff_factory()
+    except MinPointsDiffNotFoundException as err:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
             detail=str(err)
