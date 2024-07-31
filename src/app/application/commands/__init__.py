@@ -5,6 +5,7 @@ from .get_achievements_user import GetAchievementsUser
 from .get_max_achievement_points_user import GetMaxAchievementPointsUser
 from .get_max_achievements_user import GetMaxAchievementsUser
 from .get_user_info import GetUserInfo
+from .get_users_with_max_points_diff import GetUsersWithMaxPointsDiff
 
 __all__ = (
     'GetUserInfo',
@@ -14,4 +15,5 @@ __all__ = (
     'GetAchievementsUser',
     'GetMaxAchievementsUser',
     'GetMaxAchievementPointsUser',
+    'GetUsersWithMaxPointsDiff',
 )
