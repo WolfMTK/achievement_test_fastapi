@@ -9,6 +9,7 @@ from .achievement_user import (
     AchievementUserResultDTO,
     GetAchievementUserDTO,
     AchievementUserListDTO,
+    MaxAchievementsUserResultDTO
 )
 from .pagination import Pagination
 from .user import UserInfoDTO
@@ -24,4 +25,5 @@ __all__ = (
     'AchievementUserResultDTO',
     'GetAchievementUserDTO',
     'AchievementUserListDTO',
+    'MaxAchievementsUserResultDTO',
 )
