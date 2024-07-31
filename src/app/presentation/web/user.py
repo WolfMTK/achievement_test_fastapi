@@ -5,12 +5,15 @@ from app.application.dto import (
     GetAchievementUserDTO,
     Pagination,
     AchievementUserListDTO,
-    MaxAchievementsUserResultDTO, MaxAchievementPointsUserResultDTO
+    MaxAchievementsUserResultDTO,
+    MaxAchievementPointsUserResultDTO,
+    UserWithMaxPointsDiffResultDTO
 )
 from app.domain.exceptions import (
     UserNotFoundException,
-    MaxAchievementsUserNotFoundException,
-    MaxAchievementPointsUserNotFoundException
+    MaxAchievementsNotFound,
+    MaxPointsNotFound,
+    MaxPointsDiffNotFoundException
 )
 from app.domain.models import UserId
 from app.presentation.interactors import (
@@ -90,7 +93,7 @@ async def get_max_achievements_user(
         async with (ioc.get_max_achievements_user() as
                     get_max_achievements_user_factory):
             return await get_max_achievements_user_factory()
-    except MaxAchievementsUserNotFoundException as err:
+    except MaxAchievementsNotFound as err:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
             detail=str(err)
@@ -109,7 +112,26 @@ async def get_max_achievement_points_user(
         async with (ioc.get_max_achievement_points_user() as
                     get_max_achievements_user_factory):
             return await get_max_achievements_user_factory()
-    except MaxAchievementPointsUserNotFoundException as err:
+    except MaxPointsNotFound as err:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=str(err)
+        )
+
+
+@user_router.get(
+    '/diff-points',
+    tags=['Statistics'],
+    response_model=list[UserWithMaxPointsDiffResultDTO]
+)
+async def get_users_with_max_points_diff(
+        ioc: AchievementUserInteractorFactory = Depends()
+):
+    try:
+        async with (ioc.get_users_with_max_points_diff() as
+                    get_users_with_max_points_diff_factory):
+            return await get_users_with_max_points_diff_factory()
+    except MaxPointsDiffNotFoundException as err:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
             detail=str(err)
