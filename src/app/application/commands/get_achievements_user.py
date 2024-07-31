@@ -14,6 +14,9 @@ class GetAchievementsUser(Interactor[GetAchievementUserDTO, AchievementUserListD
         self.service = service
 
     async def __call__(self, data: GetAchievementUserDTO) -> AchievementUserListDTO:
+        self.service.check_user(
+            await self.gateway.check_user_exists(data.user_id)
+        )
         limit = data.pagination.limit
         offset = data.pagination.offset * limit
         achievement_user = await self.gateway.get_achievements(

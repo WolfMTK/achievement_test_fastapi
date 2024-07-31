@@ -5,12 +5,25 @@ from app.core.constants import LANGUAGE
 from app.domain.exceptions import (
     AchievementUserExistsException,
     AchievementUserNotFoundException,
+    MaxAchievementsNotFoundException,
+    UserNotFoundException,
 )
-from app.domain.models import UsersAchievements, Achievements
+from app.domain.models import UsersAchievements, Achievements, UserId
 
 
 class AchievementUserService:
-    def check_achievement_and_user(self, value) -> None:
+    def check_max_achievements_user(
+            self,
+            value: tuple[UserId, str, int] | None
+    ) -> None:
+        if value is None:
+            raise MaxAchievementsNotFoundException()
+
+    def check_user(self, value: bool) -> None:
+        if not value:
+            raise UserNotFoundException()
+
+    def check_achievement_and_user(self, value: bool) -> None:
         if not value:
             raise AchievementUserNotFoundException()
 
