@@ -9,7 +9,8 @@ from app.application.commands import (
     GetAchievementsUser,
     GetMaxAchievementsUser,
     GetMaxAchievementPointsUser,
-    GetUsersWithMaxPointsDiff
+    GetUsersWithMaxPointsDiff,
+    GetUsersWithMinPointsDiff
 )
 from app.application.protocols import UoW
 from app.domain.services import AchievementUserService
@@ -68,6 +69,15 @@ class AchievementUserIOC(AchievementUserInteractorFactory):
             self
     ) -> AsyncIterator[GetUsersWithMaxPointsDiff]:
         yield GetUsersWithMaxPointsDiff(
+            gateway=self.gateway,
+            service=self.service
+        )
+
+    @asynccontextmanager
+    async def get_users_with_min_points_diff(
+            self
+    ) -> AsyncIterator[GetUsersWithMinPointsDiff]:
+        yield GetUsersWithMinPointsDiff(
             gateway=self.gateway,
             service=self.service
         )

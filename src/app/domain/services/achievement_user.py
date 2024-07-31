@@ -7,7 +7,9 @@ from app.domain.exceptions import (
     AchievementUserNotFoundException,
     MaxAchievementsNotFound,
     UserNotFoundException,
-    MaxPointsNotFound, MaxPointsDiffNotFoundException,
+    MaxPointsNotFound,
+    MaxPointsDiffNotFoundException,
+    MinPointsDiffNotFoundException,
 )
 from app.domain.models import UsersAchievements, Achievements, UserId
 
@@ -19,6 +21,13 @@ class AchievementUserService:
     ) -> None:
         if values is None:
             raise MaxPointsDiffNotFoundException()
+
+    def check_min_points_diff_users(
+            self,
+            values: Iterator[tuple[UserId, str, int, int]] | None
+    ) -> None:
+        if values is None:
+            raise MinPointsDiffNotFoundException()
 
     def check_max_points_user(
             self,
