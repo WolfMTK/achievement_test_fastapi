@@ -11,12 +11,12 @@ from app.adapter.sqlalchemy_db import (
 from app.adapter.sqlalchemy_db.gateways import (
     UserGateway,
     AchievementGateway,
-    UserAchievementGateway,
+    AchievementUserGateway,
 )
 from app.adapter.stubs import (
     StubUserGateway,
     StubAchievementGateway,
-    StubUserAchievementGateway,
+    StubAchievementUserGateway,
 )
 from app.application.protocols import UoW
 from app.core import Stub, load_database_config
@@ -42,8 +42,8 @@ def new_achievement_gateway(
 
 def new_user_achievement_gateway(
         session: AsyncSession = Depends(Stub(AsyncSession))
-) -> Iterator[UserAchievementGateway]:
-    yield UserAchievementGateway(session)
+) -> Iterator[AchievementUserGateway]:
+    yield AchievementUserGateway(session)
 
 
 def init_dependency(app: FastAPI) -> None:
@@ -57,6 +57,6 @@ def init_dependency(app: FastAPI) -> None:
             UoW: new_uow,
             StubUserGateway: new_user_gateway,
             StubAchievementGateway: new_achievement_gateway,
-            StubUserAchievementGateway: new_user_achievement_gateway
+            StubAchievementUserGateway: new_user_achievement_gateway
         }
     )
