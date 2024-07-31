@@ -6,7 +6,7 @@ from app.application.protocols import Created
 from app.domain.models import UserId, AchievementId
 
 
-class StubUserAchievementGateway(
+class StubAchievementUserGateway(
     Created[UsersAchievements],
     ABC
 ):
@@ -42,3 +42,8 @@ class StubUserAchievementGateway(
 
     @abstractmethod
     async def check_user_exists(self, user_id: UserId) -> bool: ...
+
+    @abstractmethod
+    async def get_max_achievement_points_user(
+            self
+    ) -> tuple[UserId, str, int] | None: ...

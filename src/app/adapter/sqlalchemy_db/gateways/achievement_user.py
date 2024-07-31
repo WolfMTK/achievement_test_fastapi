@@ -6,14 +6,14 @@ from app.adapter.sqlalchemy_db.models import (
     Users,
     Achievements
 )
-from app.adapter.stubs.achievement_user import StubUserAchievementGateway
+from app.adapter.stubs.achievement_user import StubAchievementUserGateway
 from app.domain.models import UserId, AchievementId
 from .base import BaseGateway
 
 LIMIT = 1
 
 
-class UserAchievementGateway(BaseGateway, StubUserAchievementGateway):
+class AchievementUserGateway(BaseGateway, StubAchievementUserGateway):
     async def get_achievements(
             self,
             user_id: UserId,
@@ -181,3 +181,44 @@ class UserAchievementGateway(BaseGateway, StubUserAchievementGateway):
         """
         stmt = select(Users).where(Users.id == user_id).exists()
         return await self.session.scalar(select(stmt))
+
+    async def get_max_achievement_points_user(
+            self
+    ) -> tuple[UserId, str, int] | None:
+        """
+        Получить пользователя с максимальным количеством очков достижений.
+
+        SELECT
+            u.id,
+            u.name,
+            SUM(a.number_points) AS total
+        FROM
+            users AS u
+        JOIN
+            users_achievements AS ua ON u.id = ua.user_id
+        JOIN
+            achievements AS a ON a.id = ua.achievement_id
+        GROUP BY
+            u.id, u.name
+        ORDER BY
+            total DESC
+        LIMIT
+            1
+        """
+        stmt = (
+            select(
+                Users.id, Users.name, func.sum(
+                    Achievements.number_points
+                ).label('total')
+            )
+            .join(UsersAchievements, Users.id == UsersAchievements.user_id)
+            .join(Achievements, Achievements.id == UsersAchievements.achievement_id)
+            .group_by(Users.id, Users.name)
+            .order_by(desc('total'))
+            .limit(LIMIT)
+        )
+        result = await self.session.execute(stmt)
+        result_first = result.first()
+        if result_first is None:
+            return None
+        return result_first.tuple()

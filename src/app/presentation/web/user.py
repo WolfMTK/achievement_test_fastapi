@@ -4,11 +4,13 @@ from app.application.dto import (
     UserInfoDTO,
     GetAchievementUserDTO,
     Pagination,
-    AchievementUserListDTO
+    AchievementUserListDTO,
+    MaxAchievementsUserResultDTO, MaxAchievementPointsUserResultDTO
 )
 from app.domain.exceptions import (
     UserNotFoundException,
-    MaxAchievementsNotFoundException
+    MaxAchievementsUserNotFoundException,
+    MaxAchievementPointsUserNotFoundException
 )
 from app.domain.models import UserId
 from app.presentation.interactors import (
@@ -77,8 +79,9 @@ async def get_achievements_user(
 
 
 @user_router.get(
-    '/top/achievement',
+    '/top',
     tags=['Statistics'],
+    response_model=MaxAchievementsUserResultDTO
 )
 async def get_max_achievements_user(
         ioc: AchievementUserInteractorFactory = Depends()
@@ -87,7 +90,26 @@ async def get_max_achievements_user(
         async with (ioc.get_max_achievements_user() as
                     get_max_achievements_user_factory):
             return await get_max_achievements_user_factory()
-    except MaxAchievementsNotFoundException as err:
+    except MaxAchievementsUserNotFoundException as err:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=str(err)
+        )
+
+
+@user_router.get(
+    '/top-points',
+    tags=['Statistics'],
+    response_model=MaxAchievementPointsUserResultDTO
+)
+async def get_max_achievement_points_user(
+        ioc: AchievementUserInteractorFactory = Depends()
+):
+    try:
+        async with (ioc.get_max_achievement_points_user() as
+                    get_max_achievements_user_factory):
+            return await get_max_achievements_user_factory()
+    except MaxAchievementPointsUserNotFoundException as err:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
             detail=str(err)

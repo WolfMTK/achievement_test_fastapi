@@ -5,19 +5,27 @@ from app.core.constants import LANGUAGE
 from app.domain.exceptions import (
     AchievementUserExistsException,
     AchievementUserNotFoundException,
-    MaxAchievementsNotFoundException,
+    MaxAchievementsUserNotFoundException,
     UserNotFoundException,
+    MaxAchievementPointsUserNotFoundException,
 )
 from app.domain.models import UsersAchievements, Achievements, UserId
 
 
 class AchievementUserService:
+    def check_max_achievement_points_user(
+            self,
+            value: tuple[UserId, str, int] | None
+    ) -> None:
+        if value is None:
+            raise MaxAchievementPointsUserNotFoundException()
+
     def check_max_achievements_user(
             self,
             value: tuple[UserId, str, int] | None
     ) -> None:
         if value is None:
-            raise MaxAchievementsNotFoundException()
+            raise MaxAchievementsUserNotFoundException()
 
     def check_user(self, value: bool) -> None:
         if not value:
@@ -43,7 +51,10 @@ class AchievementUserService:
             achievement = val.achievement
             language = val.user.language
             name = achievement.name.split('|')[LANGUAGE[language.lower()]]
-            description = achievement.description.split('|')[LANGUAGE[language.lower()]]
+            description = (
+                achievement
+                .description.split('|')[LANGUAGE[language.lower()]]
+            )
             result.append(
                 Achievements(
                     id=achievement.id,
