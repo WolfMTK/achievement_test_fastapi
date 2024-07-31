@@ -34,3 +34,11 @@ class StubUserAchievementGateway(
 
     @abstractmethod
     async def get_total_achievements(self, user_id: UserId) -> int: ...
+
+    @abstractmethod
+    async def get_max_achievements_user(
+            self
+    ) -> tuple[UserId, str, int] | None: ...
+
+    @abstractmethod
+    async def check_user_exists(self, user_id: UserId) -> bool: ...

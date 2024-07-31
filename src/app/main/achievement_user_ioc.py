@@ -4,7 +4,7 @@ from contextlib import asynccontextmanager
 from fastapi import Depends
 
 from app.adapter.stubs import StubUserAchievementGateway
-from app.application.commands import AddAchievementUser, GetAchievementsUser
+from app.application.commands import AddAchievementUser, GetAchievementsUser, GetMaxAchievementsUser
 from app.application.protocols import UoW
 from app.domain.services import AchievementUserService
 from app.presentation.interactors import AchievementUserInteractorFactory
@@ -35,6 +35,15 @@ class AchievementUserIOC(AchievementUserInteractorFactory):
             self
     ) -> AsyncIterator[GetAchievementsUser]:
         yield GetAchievementsUser(
+            gateway=self.gateway,
+            service=self.service
+        )
+
+    @asynccontextmanager
+    async def get_max_achievements_user(
+            self
+    ) -> AsyncIterator[GetMaxAchievementsUser]:
+        yield GetMaxAchievementsUser(
             gateway=self.gateway,
             service=self.service
         )
