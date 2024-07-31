@@ -31,3 +31,9 @@ class MaxPointsDiffNotFoundException(AchievementException):
     def __str__(self) -> str:
         return ('Пользователи с максимальной разностью '
                 'очков достижений не найдены')
+
+
+class MinPointsDiffNotFoundException(AchievementException):
+    def __str__(self) -> str:
+        return ('Пользователи с минимальной разностью '
+                'очков достижений не найдены')
