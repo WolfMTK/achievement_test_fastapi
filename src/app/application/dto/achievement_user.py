@@ -99,3 +99,13 @@ class UserWithMaxPointsDiffResultDTO(MaxAchievementPointsUserResultDTO):
         description='Максимальная разность очков'
     )
 
+
+class UserWithMinPointsDiffResultDTO(MaxAchievementPointsUserResultDTO):
+    """
+    Модель данных для получения пользователя
+    с минимальной разностью очков.
+    """
+    min_diff: int = Field(
+        ...,
+        description='Минимальная разность очков'
+    )
