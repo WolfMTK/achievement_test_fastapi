@@ -3,8 +3,8 @@ from dataclasses import dataclass
 from pydantic import Field
 
 from app.domain.models import UserId, AchievementId, Achievements
-from .pagination import Pagination
 from .base import BaseModel
+from .pagination import Pagination
 
 
 class NewAchievementUserDTO(BaseModel):
@@ -40,10 +40,24 @@ class AchievementUserListDTO(BaseModel):
     achievements: list[Achievements]
 
 
-
 @dataclass
 class GetAchievementUserDTO:
     """ Модель данных для получения достижений пользователя. """
 
     user_id: UserId
     pagination: Pagination
+
+
+class MaxAchievementsUserResultDTO(BaseModel):
+    id: UserId = Field(
+        ...,
+        description='Уникальный идентификатор пользователя',
+    )
+    name: str = Field(
+        ...,
+        description='Имя пользователя'
+    )
+    count: int = Field(
+        ...,
+        description='Количество достижений'
+    )
