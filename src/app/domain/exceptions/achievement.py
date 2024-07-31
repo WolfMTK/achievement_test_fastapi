@@ -17,11 +17,17 @@ class AchievementUserNotFoundException(AchievementException):
         return 'Пользователь или достижение не найдено'
 
 
-class MaxAchievementsUserNotFoundException(AchievementException):
+class MaxAchievementsNotFound(AchievementException):
     def __str__(self) -> str:
         return 'Пользователя с максимальным количеством достижений не найдено'
 
 
-class MaxAchievementPointsUserNotFoundException(AchievementException):
+class MaxPointsNotFound(AchievementException):
     def __str__(self) -> str:
         return 'Пользователя с максимальными очками достижений не найден'
+
+
+class MaxPointsDiffNotFoundException(AchievementException):
+    def __str__(self) -> str:
+        return ('Пользователи с максимальной разностью '
+                'очков достижений не найдены')
