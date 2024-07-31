@@ -1,9 +1,9 @@
 from .achievement import StubAchievementGateway
 from .user import StubUserGateway
-from .achievement_user import StubUserAchievementGateway
+from .achievement_user import StubAchievementUserGateway
 
 __all__ = (
     'StubUserGateway',
     'StubAchievementGateway',
-    'StubUserAchievementGateway',
+    'StubAchievementUserGateway',
 )
