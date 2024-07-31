@@ -87,3 +87,15 @@ class MaxAchievementPointsUserResultDTO(BaseModel):
         ...,
         description='Количеством очков достижений'
     )
+
+
+class UserWithMaxPointsDiffResultDTO(MaxAchievementPointsUserResultDTO):
+    """
+    Модель данных для получения пользователя
+    с максимальной разностью очков.
+    """
+    max_diff: int = Field(
+        ...,
+        description='Максимальная разность очков'
+    )
+
