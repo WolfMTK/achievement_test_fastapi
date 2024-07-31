@@ -3,7 +3,8 @@ from .achievement import (AchievementExistsException,
                           AchievementUserNotFoundException,
                           MaxAchievementsNotFound,
                           MaxPointsNotFound,
-                          MaxPointsDiffNotFoundException)
+                          MaxPointsDiffNotFoundException,
+                          MinPointsDiffNotFoundException)
 from .user import UserNotFoundException
 
 __all__ = (
@@ -13,5 +14,6 @@ __all__ = (
     'AchievementUserNotFoundException',
     'MaxAchievementsNotFound',
     'MaxPointsNotFound',
-    'MaxPointsDiffNotFoundException'
+    'MaxPointsDiffNotFoundException',
+    'MinPointsDiffNotFoundException'
 )
