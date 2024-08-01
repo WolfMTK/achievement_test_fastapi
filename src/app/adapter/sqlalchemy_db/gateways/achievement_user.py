@@ -1,3 +1,4 @@
+import datetime as dt
 from collections.abc import Iterator
 from typing import Any
 
@@ -19,6 +20,7 @@ from app.adapter.sqlalchemy_db.models import (
     Achievements
 )
 from app.adapter.stubs.achievement_user import StubAchievementUserGateway
+from app.core.constants import DAYS_STREAK
 from app.domain.models import UserId, AchievementId
 from .base import BaseGateway
 
@@ -361,7 +363,9 @@ class AchievementUserGateway(BaseGateway, StubAchievementUserGateway):
                     CASE WHEN
                         up.user_id = pd.user_id_1
                     THEN
-                        pd.user_id_2 ELSE pd.user_id_1
+                        pd.user_id_2
+                    ELSE
+                        pd.user_id_1
                     END
             ) > 0
         """
@@ -400,6 +404,52 @@ class AchievementUserGateway(BaseGateway, StubAchievementUserGateway):
         )
         result = await self.session.execute(stmt)
         return self._get_points_diff_user(result)
+
+    async def get_users_with_days_streak(self) -> ScalarResult[Users]:
+        """
+        Получение пользователей,
+        которые получали достижения в заданный промежуток времени.
+
+        WITH get_users AS (
+            SELECT
+                ua.user_id AS id
+            FROM
+                users_achievements AS ua
+            WHERE
+                ua.date_on > (CURRENT_TIMESTAMP - INTERVAL $1 * '1 DAY')
+            GROUP BY
+                ua.user_id
+        )
+        SELECT
+            u.id,
+            u.name,
+        FROM
+            users AS u
+        join
+            get_users AS gu ON gu.id = u.id
+        """
+        get_users = self._get_users()
+        stmt = select(Users).join(
+            get_users,
+            Users.id == get_users.c.user_id
+        )
+        result = await self.session.execute(stmt)
+        return result.scalars()
+
+    def _get_users(self) -> CTE:
+        # Через text нахождение интервала выкидывает ошибку с параметром.
+        # Получение интервала будет не на стороне БД
+        return (
+            select(UsersAchievements.user_id)
+            .where(
+                UsersAchievements.date_on > (
+                        dt.datetime.now() - dt.timedelta(days=DAYS_STREAK)
+                )
+            )
+            .group_by(
+                UsersAchievements.user_id
+            )
+        ).cte('get_users')
 
     def _get_points_diff(self, user_points):
         user_points_2 = user_points.alias('user_points_2')

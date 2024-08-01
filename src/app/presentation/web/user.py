@@ -157,3 +157,16 @@ async def get_users_with_min_points_diff(
             status_code=status.HTTP_404_NOT_FOUND,
             detail=str(err)
         )
+
+
+@user_router.get(
+    '/days-streak',
+    tags=['Statistics'],
+    response_model=list[UserInfoDTO]
+)
+async def get_users_with_days_streak(
+        ioc: AchievementUserInteractorFactory = Depends()
+):
+    async with (ioc.get_users_with_days_streak() as
+                get_users_with_days_streak_factory):
+        return await get_users_with_days_streak_factory()

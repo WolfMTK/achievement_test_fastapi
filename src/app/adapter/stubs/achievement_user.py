@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 from collections.abc import Iterator
 
-from app.adapter.sqlalchemy_db.models import UsersAchievements
+from app.adapter.sqlalchemy_db.models import UsersAchievements, Users
 from app.application.protocols import Created
 from app.domain.models import UserId, AchievementId
 
@@ -57,3 +57,6 @@ class StubAchievementUserGateway(
     async def get_users_with_min_points_diff(
             self
     ) -> Iterator[tuple[UserId, str, int, int]] | None: ...
+
+    @abstractmethod
+    async def get_users_with_days_streak(self) -> Iterator[Users]: ...

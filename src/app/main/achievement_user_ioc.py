@@ -10,7 +10,8 @@ from app.application.commands import (
     GetMaxAchievementsUser,
     GetMaxAchievementPointsUser,
     GetUsersWithMaxPointsDiff,
-    GetUsersWithMinPointsDiff
+    GetUsersWithMinPointsDiff,
+    GetUsersWithDaysStreak
 )
 from app.application.protocols import UoW
 from app.domain.services import AchievementUserService
@@ -80,4 +81,12 @@ class AchievementUserIOC(AchievementUserInteractorFactory):
         yield GetUsersWithMinPointsDiff(
             gateway=self.gateway,
             service=self.service
+        )
+
+    @asynccontextmanager
+    async def get_users_with_days_streak(
+            self
+    ) -> AsyncIterator[GetUsersWithDaysStreak]:
+        yield GetUsersWithDaysStreak(
+            gateway=self.gateway
         )

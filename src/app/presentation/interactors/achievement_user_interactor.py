@@ -7,7 +7,8 @@ from app.application.commands import (
     GetMaxAchievementsUser,
     GetMaxAchievementPointsUser,
     GetUsersWithMaxPointsDiff,
-    GetUsersWithMinPointsDiff
+    GetUsersWithMinPointsDiff,
+    GetUsersWithDaysStreak
 )
 
 
@@ -41,3 +42,8 @@ class AchievementUserInteractorFactory(ABC):
     def get_users_with_min_points_diff(
             self
     ) -> AbstractAsyncContextManager[GetUsersWithMinPointsDiff]: ...
+
+    @abstractmethod
+    def get_users_with_days_streak(
+            self
+    ) -> AbstractAsyncContextManager[GetUsersWithDaysStreak]: ...
