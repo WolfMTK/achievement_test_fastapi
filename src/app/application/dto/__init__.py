@@ -12,7 +12,7 @@ from .achievement_user import (
     MaxAchievementsUserResultDTO,
     MaxAchievementPointsUserResultDTO,
     UserWithMaxPointsDiffResultDTO,
-    UserWithMinPointsDiffResultDTO
+    UserWithMinPointsDiffResultDTO,
 )
 from .pagination import Pagination
 from .user import UserInfoDTO
@@ -31,5 +31,5 @@ __all__ = (
     'MaxAchievementsUserResultDTO',
     'MaxAchievementPointsUserResultDTO',
     'UserWithMaxPointsDiffResultDTO',
-    'UserWithMinPointsDiffResultDTO'
+    'UserWithMinPointsDiffResultDTO',
 )
