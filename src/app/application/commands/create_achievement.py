@@ -1,7 +1,11 @@
+import logging
+
 from app.adapter.stubs import StubAchievementGateway
 from app.application.dto import CreateAchievementDTO, AchievementResultDTO
 from app.application.protocols import Interactor, UoW
 from app.domain.services import AchievementService
+
+logger = logging.getLogger(__name__)
 
 
 class CreateAchievement(Interactor[CreateAchievementDTO, AchievementResultDTO]):
@@ -27,4 +31,7 @@ class CreateAchievement(Interactor[CreateAchievementDTO, AchievementResultDTO]):
             description=achievement.description
         )
         await self.uow.commit()
+        logger.info(
+            f'Create new achievement {achievement.id} '
+        )
         return AchievementResultDTO(id=achievement.id)

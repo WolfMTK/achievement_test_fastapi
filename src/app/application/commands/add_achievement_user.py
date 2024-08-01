@@ -1,3 +1,5 @@
+import logging
+
 from app.adapter.stubs import StubAchievementUserGateway
 from app.application.dto.achievement_user import (
     NewAchievementUserDTO,
@@ -5,6 +7,8 @@ from app.application.dto.achievement_user import (
 )
 from app.application.protocols import Interactor, UoW
 from app.domain.services import AchievementUserService
+
+logger = logging.getLogger(__name__)
 
 
 class AddAchievementUser(
@@ -34,6 +38,10 @@ class AddAchievementUser(
         )
         achievement_user = await self.gateway.create(**data.model_dump())
         await self.uow.commit()
+        logger.info(
+            f'Add new achievement {achievement_user.achievement_id} '
+            f'the user {achievement_user.user_id}'
+        )
         return AchievementUserResultDTO(
             user_id=achievement_user.user_id,
             achievement_id=achievement_user.achievement_id,
