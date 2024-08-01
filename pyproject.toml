@@ -16,7 +16,8 @@ dependencies = [
     "sqlalchemy<=2.0.31",
     "alembic<=1.13.2",
     "asyncpg<=0.29.0",
-    "emoji<=2.12.1"
+    "emoji<=2.12.1",
+    "structlog<=24.4.0"
 ]
 
 [project.optional-dependencies]
