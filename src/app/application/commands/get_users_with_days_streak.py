@@ -1,8 +1,11 @@
+import logging
 from typing import Any
 
 from app.adapter.stubs import StubAchievementUserGateway
 from app.application.dto import UserInfoDTO
 from app.application.protocols import Interactor
+
+logger = logging.getLogger(__name__)
 
 
 class GetUsersWithDaysStreak(
@@ -19,6 +22,7 @@ class GetUsersWithDaysStreak(
             **kwargs: Any
     ) -> list[UserInfoDTO]:
         users = await self.gateway.get_users_with_days_streak()
+        logging.debug('Get users with days streak')
         return [UserInfoDTO(
             id=user.id,
             name=user.name,

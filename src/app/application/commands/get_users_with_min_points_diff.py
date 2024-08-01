@@ -1,9 +1,12 @@
+import logging
 from typing import Any
 
 from app.adapter.stubs import StubAchievementUserGateway
 from app.application.dto import UserWithMinPointsDiffResultDTO
 from app.application.protocols import Interactor
 from app.domain.services import AchievementUserService
+
+logger = logging.getLogger(__name__)
 
 
 class GetUsersWithMinPointsDiff(
@@ -23,6 +26,7 @@ class GetUsersWithMinPointsDiff(
     ) -> list[UserWithMinPointsDiffResultDTO]:
         data = await self.gateway.get_users_with_min_points_diff()
         self.service.check_min_points_diff_users(data)
+        logger.debug('Get users with min points diff')
         return [UserWithMinPointsDiffResultDTO(
             id=user_id,
             name=name,

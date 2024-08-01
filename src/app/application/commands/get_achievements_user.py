@@ -1,7 +1,11 @@
+import logging
+
 from app.adapter.stubs import StubAchievementUserGateway
 from app.application.dto import GetAchievementUserDTO, AchievementUserListDTO
 from app.application.protocols import Interactor
 from app.domain.services import AchievementUserService
+
+logger = logging.getLogger(__name__)
 
 
 class GetAchievementsUser(Interactor[GetAchievementUserDTO, AchievementUserListDTO]):
@@ -25,6 +29,7 @@ class GetAchievementsUser(Interactor[GetAchievementUserDTO, AchievementUserListD
             offset=offset
         )
         total = await self.gateway.get_total_achievements(user_id=data.user_id)
+        logger.debug(f'Get achievements the user {data.user_id}')
         return AchievementUserListDTO(
             total=total,
             limit=data.pagination.limit,
