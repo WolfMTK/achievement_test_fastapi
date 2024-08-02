@@ -3,11 +3,11 @@ from dataclasses import dataclass
 from pydantic import Field
 
 from app.domain.models import UserId, AchievementId, Achievements
-from .base import BaseModel
+from .base import Base
 from .pagination import Pagination
 
 
-class NewAchievementUserDTO(BaseModel):
+class NewAchievementUserDTO(Base):
     """ Модель данных для добавления достижения пользователю. """
 
     user_id: UserId = Field(
@@ -29,7 +29,7 @@ class AchievementUserResultDTO(NewAchievementUserDTO):
     )
 
 
-class AchievementUserListDTO(BaseModel):
+class AchievementUserListDTO(Base):
     """ Модель данных для получения массива достижения пользователя. """
 
     total: int = Field(..., description='Количество достижений')
@@ -50,7 +50,7 @@ class GetAchievementUserDTO:
     pagination: Pagination
 
 
-class MaxAchievementsUserResultDTO(BaseModel):
+class MaxAchievementsUserResultDTO(Base):
     """
     Модель данных для получения пользователя
     с максимальным количеством достижений.
@@ -70,7 +70,7 @@ class MaxAchievementsUserResultDTO(BaseModel):
     )
 
 
-class MaxAchievementPointsUserResultDTO(BaseModel):
+class MaxAchievementPointsUserResultDTO(Base):
     """
     Модель данных для получения пользователя с максимальным
     количеством очков достижений.
