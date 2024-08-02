@@ -1,0 +1,31 @@
+version: "3.0"
+
+services:
+  db:
+    image: postgres:16.3
+    env_file: .env
+    volumes:
+      - ./data/:/docker-entrypoint-initdb.d
+      - postgres_data:/var/lib/postgresql/data
+
+  backend:
+    build: .
+    env_file: .env
+    depends_on:
+      - db
+
+  nginx:
+    build: ./nginx
+    env_file: .env
+    depends_on:
+      - db
+      - backend
+    ports:
+      # обычно указывают
+      # - "80:80"
+      # - "443:443"
+      # но у меня на основный nginx скидывает
+      - "5000:80"
+
+volumes:
+  postgres_data:
